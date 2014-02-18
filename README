@@ -1,1 +1,7 @@
 small photo gallery written in python and django
+
+this project should normally be directly usable with eclipse / pydev
+
+to remove eclipse / pydev support just remote the .project and .pydevproject files
+
+generate and empty database with python manage.py syncdb
