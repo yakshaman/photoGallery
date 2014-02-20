@@ -4,8 +4,9 @@ from django.db import models
 
 class Album(models.Model): 
     title = models.CharField(max_length=200)
-    visible = models.BooleanField()
-    date = models.DateField()
+    visible = models.BooleanField(default=False)
+    date = models.DateField(null=True)
+    path = models.CharField(max_length=200)
     
 class Photo(models.Model):
     album = models.ForeignKey(Album)
