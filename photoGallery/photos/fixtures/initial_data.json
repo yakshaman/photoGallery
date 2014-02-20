@@ -1,0 +1,11 @@
+[
+ {
+	 "model" : "photos.album",
+	 "pk" : 1,
+	 "fields" : {
+		 "title" : "Untitled Default Album",
+		 "visible" : true
+	 	}
+ }
+ 
+ ]
