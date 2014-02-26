@@ -1,0 +1,15 @@
+
+
+<h1>
+{{ album.title }}
+</h1>
+
+{% if photo_list %}
+    <ul>
+    {% for photo in photo_list %}
+        <li><a href="/photo/{{ photo.id }}/">{{ photo.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No photos are available.</p>
+{% endif %}
