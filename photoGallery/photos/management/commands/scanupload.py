@@ -4,6 +4,10 @@ from django.conf import settings
 from pprint import pformat
 import os
 from datetime import datetime
+import imghdr
+from utils.randString import genString
+import shutil
+from utils.thumbnails import genThumbs
 
 class Command (BaseCommand) :
     args = 'Nope'
@@ -11,11 +15,20 @@ class Command (BaseCommand) :
 
     def addPicToAlbum(self, fname, fpath, album) :
         self.stdout.write("Adding pic %s to album %d" % (fname, album))
-        try :
-            p = Photo.objects.get(album=album, orig_filename__exact=fname)
-            self.stdout.write("%s already in album %d" % (fname, album))
-        except :
-            Photo(album=album, title=fname, date=datetime.now(), orig_filename=fname, gen_filename=fname).save()
+        if imghdr.what(fpath) :
+            try :
+                p = Photo.objects.get(album=album, orig_filename__exact=fname)
+                self.stdout.write("%s already in album %d" % (fname, album))
+            except :
+                filename, extension = os.path.splitext(fname)
+                rname = genString() + extension
+                Photo(album=album, title=fname, date=datetime.now(), orig_filename=fname, gen_filename=rname).save()
+                os.rename(fpath, os.path.join(settings.STORAGE_DIR, rname))
+                genThumbs(self, rname)
+
+        else :
+            self.stdout.write("File %s is not an image file" % fname)
+            os.remove(fpath)
 
     def manageAlbum(self, fname, fpath) :
         self.stdout.write("Checking if the is already an album with this name")
@@ -23,13 +36,18 @@ class Command (BaseCommand) :
             a = Album.objects.get(title__exact=fname)
             self.stdout.write("Album %s already present, adding pics to it" % fname)
         except :
-            a = Album(title=fname, date=datetime.now(), path=fpath).save()
+            self.stdout.write("Album %s does not exists, creating it" % fname)
+            a = Album(title=fname, date=datetime.now(), path=fpath)
+            a.save()
+
+        self.stdout.write(pformat(a))
 
         ls = os.listdir(fpath)
         for f in ls :
             ppath = os.path.join(fpath, f)
             if (os.path.isfile(ppath)) :
-                self.addPicToAlbum(f, fpath, a.pk)
+                self.addPicToAlbum(f, os.path.join(fpath, f), a.id)
+        os.rmdir(fpath)
 
     def handle(self, *args, **options) :
         ls = os.listdir(settings.UPLOAD_DIR)
