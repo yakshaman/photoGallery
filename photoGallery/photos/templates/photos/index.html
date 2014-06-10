@@ -1,3 +1,6 @@
+{% extends "photos/base.html" %}
+
+{% block content %}
 {% if album_list %}
     <ul>
     {% for album in album_list %}
@@ -7,3 +10,4 @@
 {% else %}
     <p>No albums are available.</p>
 {% endif %}
+{% endblock %}

@@ -1,9 +1,13 @@
+{% extends "photos/base.html" %}
 
-
-<h1>
+{% block title %}
 {{ album.title }}
-</h1>
+{% endblock %}
 
+{% block links %}
+<li><a href="/">Back to index</a></li>
+{% endblock %}
+{% block content %}
 {% if photo_list %}
     <ul>
     {% for photo in photo_list %}
@@ -13,3 +17,4 @@
 {% else %}
     <p>No photos are available.</p>
 {% endif %}
+{% endblock %}

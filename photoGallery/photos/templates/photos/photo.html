@@ -1,9 +1,48 @@
+{% extends "photos/base.html" %}
+
+
+
+{% block links %}
 {% if photo %}
-    <ul>
-    {% for album in album_list %}
-        <li><a href="/photo/{{ photo.id }}/">{{ photo.title }}</a></li>
-    {% endfor %}
-    </ul>
+    <div id="mainlinks">
+        <a class="link" href="/">Back to index</a>
+        <a class="link" href="/album/{{ photo.album }}/">Back to album</a>
+    </div>
+    <div id="sizelinks">
+        <a class="size" href="#" onClick="change_pic_size('M')">Small</a>
+        <a class="size" href="#" onClick="change_pic_size('L')">Medium</a>
+        <a class="size" href="#" onClick="change_pic_size()">Original</a>
+    </div>
 {% else %}
-    <p>No photo.</p>
+<li><a href="/">Back to index</a></li>
 {% endif %}
+
+{% endblock %}
+
+{% block content %}
+{% if photo %}
+
+    <script type="text/javascript">
+    function change_pic_size(size)
+    {
+        switch(size)
+        {
+        case 'M' :
+            document.getElementById('pic').src = "{{ photo.path_m }}";
+            break;
+        case 'L' :
+            document.getElementById('pic').src = "{{ photo.path_l }}";
+            break;
+        default :
+            document.getElementById('pic').src = "{{ photo.path }}";
+            break;
+        }
+    }
+    </script>
+
+    <img id="pic" src="{{ photo.path }}" alt="{{ photo.orig_filename }}">
+{% else %}
+<p>No photo.</p>
+{% endif %}
+
+{% endblock %}

@@ -26,7 +26,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -52,7 +51,6 @@ ROOT_URLCONF = 'photoGallery.urls'
 
 WSGI_APPLICATION = 'photoGallery.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
@@ -76,12 +74,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'photos/static/'),
+    STORAGE_DIR,
+)
+
 TEMPLATE_DIRS = os.path.join(BASE_DIR, 'templates')
+
 STORAGE_DIR = os.path.join(BASE_DIR, 'storage')
+
 UPLOAD_DIR = os.path.join(BASE_DIR, 'upload')
+
+#Thumbnail sizes
+S_THUMB_SIZE = 128, 128
+M_THUMB_SIZE = 512, 512
+L_THUMB_SIZE = 1024, 1024
