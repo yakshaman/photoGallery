@@ -1,0 +1,5 @@
+you should upload pics here and then run manage.py scanupload
+
+this script will put all pic file in this dir in the default album
+
+if it encounters a directory it will create a new album (if necessary) with the directory as the name and put all pics in the directory in this album
