@@ -2,4 +2,4 @@
 *.sqlite
 *.sqlite3
 *.jpg
-photoGallery/upload/*
+*.JPG
