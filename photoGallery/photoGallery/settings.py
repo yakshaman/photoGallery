@@ -96,3 +96,6 @@ UPLOAD_DIR = os.path.join(BASE_DIR, 'upload')
 S_THUMB_SIZE = 128, 128
 M_THUMB_SIZE = 512, 512
 L_THUMB_SIZE = 1024, 1024
+
+#Album presentation
+ALBUM_LINE_SIZE = 5
