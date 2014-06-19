@@ -6,6 +6,7 @@ from django.conf import settings
 from photos.models import Album
 from photos.models import Photo
 
+from utils.chunkList import chunks
 # Create your views here.
 
 from django.http import HttpResponse
@@ -18,7 +19,9 @@ def index(request):
 
 def album(request, album_id):
     album = Album.objects.get(id=album_id)
+    album.pic_url = settings.STATIC_URL
     photo_list = Photo.objects.order_by('date').filter(album=album_id)
+    photo_list = chunks(photo_list, settings.ALBUM_LINE_SIZE)
     template = loader.get_template('photos/album.html')
     context = RequestContext(request, {'photo_list' : photo_list, 'album' : album})
     return HttpResponse(template.render(context))

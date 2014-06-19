@@ -1,0 +1,28 @@
+table {
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid green;
+}
+
+#content
+{
+}
+#album
+{
+    width: 100%;
+}
+
+.album_line
+{
+    height: 250px;
+    margin: 25px;
+}
+.album_photo
+{
+    border: 1px solid yellow;
+    text-align: center;
+    margin: 25px;
+
+}

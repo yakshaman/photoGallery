@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 <head>
-    <link rel="stylesheet" href="css/photo.css" />
+    <link rel="stylesheet" href="{% static "css/photo.css" %}" />
     <title>{% block title %}PhotoGallery{% endblock %}</title>
 
     {% block javascript %}{% endblock %}

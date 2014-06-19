@@ -8,13 +8,34 @@
 <li><a href="/">Back to index</a></li>
 {% endblock %}
 {% block content %}
+
+
 {% if photo_list %}
-    <ul>
-    {% for photo in photo_list %}
-        <li><a href="/photo/{{ photo.id }}/">{{ photo.title }}</a></li>
-    {% endfor %}
-    </ul>
+
+    <table id="album">
+
+        {% for line in photo_list %}
+            <tr class="album_line">
+
+                {% for pic in line %}
+                    <td class="album_photo">
+                        <div class="album_photo_title">
+                            <a href="/photo/{{ pic.id }}/">{{ pic.title }}</a></li>
+                        </div>
+                        <div class="album_photo_thumb">
+                            <img src="{{ album.pic_url|add:"S_"|add:pic.gen_filename }}">
+                        </div>
+                    </td>
+                {% endfor %}
+
+            </tr>
+
+        {% endfor %}
+
+    </table>
+
 {% else %}
-    <p>No photos are available.</p>
+<h2>Album has no photos available</h2>
 {% endif %}
+
 {% endblock %}
